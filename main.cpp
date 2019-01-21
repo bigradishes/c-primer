@@ -19,6 +19,14 @@ public:
     stock(const char *co, int n = 0, double pr = 0.0);
 };
 
+stock::stock()
+{
+	std::strcpy(company, "no name");
+	shares = 0;
+	share_val = 0.0;
+	total_val = 0.0;
+}
+
 stock::stock(const char * co, int n, double pr)
 {
 	std::strncpy(company, co, 29);
@@ -104,6 +112,7 @@ int main(int argc, char *argv[])
     stock food = stock("world cabbage", 250, 1.25);
     stock garment("furry mason", 50, 2.5);
     stock garment1 = stock("furry mason", 50, 2.5);
+    stock *pstock = new stock("electroshock games", 18, 19.0);
     stock stock1;
     stock1.acquire("nanosmart", 20, 12.50);
     cout.setf(ios_base::fixed);
@@ -114,6 +123,7 @@ int main(int argc, char *argv[])
     stock1.show();
     stock1.sell(400, 20.00);
     stock1.show();
+    delete pstock;
     return 0;
     //QCoreApplication a(argc, argv);
 
