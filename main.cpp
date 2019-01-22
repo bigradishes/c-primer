@@ -16,9 +16,24 @@ public:
     void sell(int num, double price);
     void update(double price);
     void show();
+    /* 构造函数 */
     stock(const char *co, int n = 0, double pr = 0.0);
+    /* 默认构造函数 */
+    stock();
+    /* 默认构造函数 */
+    //stock(const char *co = "error", int n = 0, double pr = 0.0);
+    /* 析构函数 */
+    ~stock();
 };
 
+/* 析构函数 */
+stock::~stock()
+{
+	using std::cout;
+	cout << "bye. " << company << "!.\n";
+}
+
+/* 默认构造函数,没有参数 */
 stock::stock()
 {
 	std::strcpy(company, "no name");
@@ -27,6 +42,7 @@ stock::stock()
 	total_val = 0.0;
 }
 
+/* 构造函数 */
 stock::stock(const char * co, int n, double pr)
 {
 	std::strncpy(company, co, 29);
@@ -114,6 +130,7 @@ int main(int argc, char *argv[])
     stock garment1 = stock("furry mason", 50, 2.5);
     stock *pstock = new stock("electroshock games", 18, 19.0);
     stock stock1;
+    stock first = stock();
     stock1.acquire("nanosmart", 20, 12.50);
     cout.setf(ios_base::fixed);
     cout.precision(2);
