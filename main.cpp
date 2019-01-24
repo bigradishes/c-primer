@@ -1,148 +1,34 @@
-#include <QCoreApplication>
 #include <iostream>
-#include <cstring>
+#include "stocks.h"
 
-class stock
-{
-private:
-    char company[30];
-    int shares;
-    double share_val;
-    double total_val;
-    void set_tot(){ total_val = shares * share_val;}
-public:
-    void acquire(const char *co, int n, double pr);
-    void buy(int num,double price);
-    void sell(int num, double price);
-    void update(double price);
-    void show();
-    /* 构造函数 */
-    stock(const char *co, int n = 0, double pr = 0.0);
-    /* 默认构造函数 */
-    stock();
-    /* 默认构造函数 */
-    //stock(const char *co = "error", int n = 0, double pr = 0.0);
-    /* 析构函数 */
-    ~stock();
-};
-
-/* 析构函数 */
-stock::~stock()
+int main()
 {
 	using std::cout;
-	cout << "bye. " << company << "!.\n";
-}
+	using std::ios_base;
+	cout.precision(2);
+	cout.setf(ios_base::fixed, ios_base::floatfield);
+	cout.setf(ios_base::showpoint);
 
-/* 默认构造函数,没有参数 */
-stock::stock()
-{
-	std::strcpy(company, "no name");
-	shares = 0;
-	share_val = 0.0;
-	total_val = 0.0;
-}
+	/* 默认构造函数 */
+	stock stock33;
+	cout << "using constructors to create new objects.\n";
+	/* 构造函数 */
+	stock stock1("nanosmart", 12,20.0);
+	stock1.show();
+	/* 构造函数 */
+	stock stock2 = stock("boffo objects", 2, 2.0);
+	stock2.show();
 
-/* 构造函数 */
-stock::stock(const char * co, int n, double pr)
-{
-	std::strncpy(company, co, 29);
-	company[29] = '\0';
+	cout << "assigning stock1 to stock2: \n";
+	stock2 = stock1;
+	cout << "listing stock1 and stock2: \n";
+	stock1.show();
+	stock2.show();
 
-	if (n < 0) {
-		std::cerr << "number of shares can't be negative;"
-			<< company << " shares set to 0.\n";
-		shares = 0;
-	}
-	else
-		shares = n;
-	share_val = pr;
-	set_tot();
-}
-
-void stock::acquire(const char *co, int n, double pr)
-{
-    std:strncpy(company, co, 29);
-    company[29] = '\0';
-    if (n < 0)
-    {
-        std::cerr << "number of shares can't be negative. "
-                 << company << " shares set to 0.\n";
-        shares = 0;
-    }
-    else
-        shares = n;
-    share_val = pr;
-    set_tot();
-}
-
-void stock::buy(int num, double price)
-{
-    if (num < 0)
-    {
-        std::cerr << "number of shares purchased can't be negative. "
-                  << "transaction is aborted.\n";
-    }
-    else {
-        shares += num;
-        share_val = price;
-        set_tot();
-    }
-}
-
-void stock::sell(int num, double price)
-{
-    using std::cerr;
-    if (num < 0) {
-        cerr << "number of shares sold can't be negative."
-             << "transaction is aborbed.\n";
-    } else if (num > shares) {
-        cerr << "you can't sell more than you have! "
-             << "transaction is aborted.\n";
-    } else {
-        shares -= num;
-        share_val = price;
-        set_tot();
-    }
-}
-
-void stock::update(double price)
-{
-    share_val = price;
-    set_tot();
-}
-
-void stock::show()
-{
-    using std::cout;
-    using std::endl;
-    cout << "company: " << company
-         << " shares: " << shares << endl
-         << " share price: $" << share_val
-         << " tobal worth: $" << total_val << endl;
-}
-
-int main(int argc, char *argv[])
-{
-    using std::cout;
-    using std::ios_base;
-    stock food = stock("world cabbage", 250, 1.25);
-    stock garment("furry mason", 50, 2.5);
-    stock garment1 = stock("furry mason", 50, 2.5);
-    stock *pstock = new stock("electroshock games", 18, 19.0);
-    stock stock1;
-    stock first = stock();
-    stock1.acquire("nanosmart", 20, 12.50);
-    cout.setf(ios_base::fixed);
-    cout.precision(2);
-    cout.setf(ios_base::showpoint);
-    stock1.show();
-    stock1.buy(15, 18.25);
-    stock1.show();
-    stock1.sell(400, 20.00);
-    stock1.show();
-    delete pstock;
-    return 0;
-    //QCoreApplication a(argc, argv);
-
-    //return a.exec();
+	cout << "using a constructor to reset an object.\n";
+	stock1 = stock("nifty foods", 10, 50.0);
+	cout << "revised stock1: \n";
+	stock1.show();
+	cout << "done.\n";
+	return 0;
 }
