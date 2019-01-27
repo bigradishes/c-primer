@@ -3,32 +3,46 @@
 
 int main()
 {
-	using std::cout;
-	using std::ios_base;
-	cout.precision(2);
-	cout.setf(ios_base::fixed, ios_base::floatfield);
-	cout.setf(ios_base::showpoint);
+	using namespace std;
+	stock st;
+	char ch;
+	unsigned long po;
+	cout << "please enter a to add a purchase order, \n"
+		<< "p to process a po, or q to quit.\n";
 
-	/* 默认构造函数 */
-	stock stock33;
-	cout << "using constructors to create new objects.\n";
-	/* 构造函数 */
-	stock stock1("nanosmart", 12,20.0);
-	stock1.show();
-	/* 构造函数 */
-	stock stock2 = stock("boffo objects", 2, 2.0);
-	stock2.show();
-
-	cout << "assigning stock1 to stock2: \n";
-	stock2 = stock1;
-	cout << "listing stock1 and stock2: \n";
-	stock1.show();
-	stock2.show();
-
-	cout << "using a constructor to reset an object.\n";
-	stock1 = stock("nifty foods", 10, 50.0);
-	cout << "revised stock1: \n";
-	stock1.show();
-	cout << "done.\n";
+	/* 接受键盘输入 */
+	while (cin >> ch && toupper(ch) != 'Q') {
+		while (cin.get() != '\n')
+			continue;
+		if (!isalpha(ch)) {
+			cout << '\a';
+			continue;
+		}
+		/* 添加或者删除 */
+		switch (ch) {
+		case 'A':
+		case 'a':
+			cout << "enter a po number to add: ";
+			cin >> po;
+			if (st.isfull())
+				cout << "stack already full\n";
+			else
+				st.push(po);
+			break;
+		case 'P':
+		case 'p':
+			if (st.isempty())
+				cout << "stack already empty\n";
+			else {
+				st.pop(po);
+				cout << "PO #" << po << " popped\n";
+			}
+			break;
+		}
+		cout << "please enter a to add a purchase order, \n"
+		<< "p to process a PO, or Q to quit.\n";
+	}
+	cout << "bye\n";
 	return 0;
 }
+
