@@ -1,27 +1,19 @@
-#ifndef STOCK1_H_
-#define STOCK1_H_
+#ifndef MYTIME0_H_
+#define MYTIME0_H_
 
-#include <string>
-
-class stock
+//程序清单 11.1
+class Time
 {
 private:
-	std::string company;
-	int shares;
-	double share_val;
-	double total_val;
-	void set_tot() {total_val = shares * share_val; }
+	int hours;
+	int minutes;
 public:
-	/* 默认构造函数 */
-	stock();
-	/* 构造函数 */
-	stock(const char *co, int n = 0, double pr = 0.0);
-	/* 析构函数 */
-	~stock();
-	void buy(int num, double price);
-	void sell(int num, double price);
-	void update(double price);
-	void show();
-	const stock &topval(const stock &s) const;
+	Time();
+	Time(int h, int m = 0);
+	void AddMin(int m);
+	void AddHr(int h);
+	void Reset(int h = 0, int m = 0);
+	Time Sum(const Time &t)const;
+	void Show()const;
 };
 #endif

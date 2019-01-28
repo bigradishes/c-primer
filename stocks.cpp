@@ -1,90 +1,48 @@
 #include <iostream>
-#include <cstring>
 #include "stocks.h"
 
-/* 默认构造函数 */
-stock::stock()
+Time::Time()
 {
-	std::cout << "bft ===================================.\n";
-	std::cout << "default constructor called.\n";
-    //std::strcpy(company, "no name");
-    company = "no name";
-	shares = 0;
-	share_val = 0.0;
-	total_val = 0.0;
+	hours = minutes = 0;
 }
 
-stock::stock(const char *co, int n, double pr)
+Time::Time(int h, int m)
 {
-	std::cout << "bft --------------------------------.\n";
-	std::cout << "constructor using " << co << " called.\n";
-	//std::strncpy(company, co, 29);
-	//company[29] = '\0';
-	company = co;
-	if (n < 0)
-	{
-		std::cerr << "number of shares can't be negative; "
-			<< company << "shares set to 0.\n";
-		shares = 0;
-	} else
-		shares = n;
-	share_val = pr;
-	set_tot();
+	hours = h;
+	minutes = m;
 }
 
-stock::~stock()
+void Time::AddMin(int m)
 {
-	std::cout << "bye, " << company << "!\n";
+	minutes += m;
+	hours += minutes /60;
+	minutes %= 60;
 }
 
-void stock::buy(int num, double price)
+void Time::AddHr(int h)
 {
-	if (num < 0) {
-		std::cerr << "number of shares purchased can't be negative. "
-			<< "transaction is aborted.\n";
-	} else {
-		shares += num;
-		share_val = price;
-		set_tot();
-	}
+	hours += h;
 }
 
-void stock::sell(int num, double price)
+void Time::Reset(int h, int m)
 {
-	using std::cerr;
-	if (num < 0) {
-		cerr << "number of shares sold can't be negative. "
-			<< "transaction is aborted.\n";
-	} else if (num > shares) {
-		cerr << "you can't sell more than you hanve! "
-			<< "transaction is aborted.\n";
-	} else {
-		shares -= num;
-		share_val = price;
-		set_tot();
-	}
+	hours = h;
+	minutes = m;
 }
 
-void stock::update(double price)
+Time Time::Sum(const Time &t) const
 {
-	share_val = price;
-	set_tot();
+	Time sum;
+	sum.minutes = minutes + t.minutes;
+	sum.hours = hours + t.hours + sum.minutes /60;
+	sum.minutes %= 60;
+	return sum;
 }
 
-void stock::show()
+void Time::Show()const
 {
-	using std::cout;
-	using std::endl;
-	cout << "company: " << company
-		<< " shares: " << shares << endl
-		<< " share price: $" << share_val
-		<< " total worth: $" << total_val << endl;
+	std::cout << hours << " hours." << minutes << " minutes";
 }
 
-const stock & stock::topval(const stock &s) const
-{
-	if (s.total_val > total_val)
-		return s;
-	else
-		return *this;
-}
+
+
