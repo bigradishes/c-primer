@@ -1,10 +1,38 @@
 #include <iostream>
 #include "stocks.h"
 
+const int STKS = 4;
+
 int main()
 {
 	using std::cout;
 	using std::ios_base;
+
+	/* 类数组 */
+	stock stocks[STKS] = {
+		stock("nanosmart", 12, 20.0),
+		stock("boffo objects", 200, 2.0),
+		stock("monolithic obelisks", 130, 3.25),
+		stock("fleep enterprises", 60, 6.5)
+	};
+
+	cout.precision(2);
+	cout.setf(ios_base::fixed, ios_base::floatfield);
+	cout.setf(ios_base::showpoint);
+
+	cout << "stock holdings:\n";
+
+	int st;
+	for (st = 0; st < STKS; st++)
+		stocks[st].show();
+
+	stock top = stocks[0];
+	for (st = 1; st < STKS; st++)
+		top = top.topval(stocks[st]);
+	cout << "\nMost valuable holding:\n";
+	top.show();
+
+#if 0
 	cout.precision(2);
 	cout.setf(ios_base::fixed, ios_base::floatfield);
 	cout.setf(ios_base::showpoint);
@@ -30,5 +58,6 @@ int main()
 	cout << "revised stock1: \n";
 	stock1.show();
 	cout << "done.\n";
+#endif
 	return 0;
 }

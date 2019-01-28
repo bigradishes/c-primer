@@ -7,7 +7,8 @@ stock::stock()
 {
 	std::cout << "bft ===================================.\n";
 	std::cout << "default constructor called.\n";
-	std::strcpy(company, "no name");
+    //std::strcpy(company, "no name");
+    company = "no name";
 	shares = 0;
 	share_val = 0.0;
 	total_val = 0.0;
@@ -17,9 +18,9 @@ stock::stock(const char *co, int n, double pr)
 {
 	std::cout << "bft --------------------------------.\n";
 	std::cout << "constructor using " << co << " called.\n";
-	std::strncpy(company, co, 29);
-	company[29] = '\0';
-
+	//std::strncpy(company, co, 29);
+	//company[29] = '\0';
+	company = co;
 	if (n < 0)
 	{
 		std::cerr << "number of shares can't be negative; "
@@ -80,3 +81,10 @@ void stock::show()
 		<< " total worth: $" << total_val << endl;
 }
 
+const stock & stock::topval(const stock &s) const
+{
+	if (s.total_val > total_val)
+		return s;
+	else
+		return *this;
+}
