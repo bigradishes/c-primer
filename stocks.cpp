@@ -1,5 +1,5 @@
 #include <iostream>
-#include "stocks.h"
+#include "mytimel.h"
 
 Time::Time()
 {
@@ -15,7 +15,7 @@ Time::Time(int h, int m)
 void Time::AddMin(int m)
 {
 	minutes += m;
-	hours += minutes /60;
+	hours += minutes/60;
 	minutes %= 60;
 }
 
@@ -30,7 +30,7 @@ void Time::Reset(int h, int m)
 	minutes = m;
 }
 
-Time Time::Sum(const Time &t) const
+Time Time::operator+(const Time &t)const
 {
 	Time sum;
 	sum.minutes = minutes + t.minutes;
@@ -41,8 +41,5 @@ Time Time::Sum(const Time &t) const
 
 void Time::Show()const
 {
-	std::cout << hours << " hours." << minutes << " minutes";
+	std::cout << hours << " hours, " << minutes << " minutes";
 }
-
-
-
