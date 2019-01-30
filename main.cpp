@@ -11,6 +11,7 @@ int main()
 	/* 构造函数 */
 	Time coding(2, 40);
 	Time fixing(5, 55);
+	/* 默认构造函数 */
 	Time total;
 
 	cout << "planning time = ";

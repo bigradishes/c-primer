@@ -1,5 +1,5 @@
 #include <iostream>
-#include "mytimel.h"
+#include "stocks.h"
 
 Time::Time()
 {
