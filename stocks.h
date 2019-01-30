@@ -1,7 +1,7 @@
 #ifndef MYTIME1_H_
 #define MYTIME1_H_
 
-//程序清单11.4
+//程序清单11.7
 class Time
 {
 private:
@@ -14,6 +14,8 @@ public:
 	void AddHr(int h);
 	void Reset(int h = 0, int m = 0);
 	Time operator+(const Time &t)const;
+	Time operator-(const Time &t)const;
+	Time operator*(double n)const;
 	void Show()const;
 };
 
